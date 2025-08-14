@@ -16,13 +16,13 @@
                 <?php the_custom_logo(); ?>
             <?php else : ?>
                 <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
-                    <h1 class="site-title"><?php bloginfo('name'); ?></h1>
+                    <h1 class="site-title"><?php echo esc_html(get_bloginfo('name')); ?></h1>
                 </a>
             <?php endif; ?>
         </div>
 
         <div class="responsive-nav-wrapper">
-            <nav class="main-navigation nav-menu" aria-label="<?php esc_attr_e('Main Navigation', 'splice-test'); ?>">
+            <nav class="main-navigation nav-menu" aria-label="<?php echo esc_attr_x('Main Navigation', 'Navigation label', 'splice-test'); ?>">
                 <div class="main-nav-container">
                     <?php wp_nav_menu(array(
                         'theme_location' => 'primary',
@@ -33,8 +33,10 @@
                     )); ?>
                 </div>
             </nav>
-            <button class="mobile-menu-toggle" aria-label="<?php esc_attr_e('Toggle mobile menu', 'splice-test'); ?>">
-                <span class="screen-reader-text"><?php esc_html_e('Menu', 'splice-test'); ?></span>
+            <button class="mobile-menu-toggle"
+                    aria-label="<?php echo esc_attr_x('Toggle mobile menu', 'Mobile menu button label', 'splice-test'); ?>"
+                    data-nonce="<?php echo esc_attr(wp_create_nonce('mobile_menu_toggle')); ?>">
+                <span class="screen-reader-text"><?php echo esc_html_x('Menu', 'Mobile menu text', 'splice-test'); ?></span>
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>

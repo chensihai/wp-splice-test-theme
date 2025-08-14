@@ -14,8 +14,60 @@ function splice_test_theme_scripts() {
         '1.0.0',
         true
     );
+
+    // Localize script with nonce and translations
+    wp_localize_script(
+        'splice-test-theme-navigation',
+        'spliceNavigation',
+        array(
+            'nonce' => wp_create_nonce('splice_nav_nonce'),
+            'ajaxurl' => admin_url('admin-ajax.php')
+        )
+    );
 }
 add_action('wp_enqueue_scripts', 'splice_test_theme_scripts');
+
+/**
+ * Handle menu toggle AJAX action
+ */
+function splice_handle_menu_toggle() {
+    // Verify nonce
+    if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'splice_nav_nonce')) {
+        wp_send_json_error('Invalid security token');
+    }
+
+    // Sanitize and validate any incoming data
+    $menu_id = isset($_POST['menu_id']) ? absint($_POST['menu_id']) : 0;
+    $is_active = isset($_POST['is_active']) ? rest_sanitize_boolean($_POST['is_active']) : false;
+
+    // Process the menu toggle
+    $response = array(
+        'success' => true,
+        'menu_id' => $menu_id,
+        'is_active' => $is_active
+    );
+
+    wp_send_json_success($response);
+}
+add_action('wp_ajax_splice_menu_toggle', 'splice_handle_menu_toggle');
+add_action('wp_ajax_nopriv_splice_menu_toggle', 'splice_handle_menu_toggle');
+
+/**
+ * Sanitize menu items before display
+ */
+function splice_sanitize_menu_items($items, $args) {
+    if (isset($args->theme_location) && $args->theme_location === 'primary') {
+        foreach ($items as $item) {
+            // Sanitize menu item attributes
+            $item->title = wp_kses_post($item->title);
+            $item->url = esc_url($item->url);
+            $item->attr_title = esc_attr($item->attr_title);
+            $item->description = wp_kses_post($item->description);
+        }
+    }
+    return $items;
+}
+add_filter('wp_nav_menu_objects', 'splice_sanitize_menu_items', 10, 2);
 
 /**
  * Splice Test Theme functions and definitions
