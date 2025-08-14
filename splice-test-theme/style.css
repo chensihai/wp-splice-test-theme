@@ -24,3 +24,658 @@ body {
     margin: 0 auto;
     padding: 20px;
 }
+/*
+ * Responsive Design
+ */
+
+/* Mobile-first approach */
+body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Navigation styles */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+/* Responsive Navigation Styles */
+.responsive-nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 15px 20px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-navigation {
+    display: flex;
+    align-items: center;
+}
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    transform: scale(1.1);
+}
+
+.mobile-menu-toggle .hamburger-bar {
+    display: block;
+    width: 28px;
+    height: 3px;
+    margin: 6px 0;
+    background-color: #2c3e50;
+    border-radius: 3px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.mobile-menu-toggle.is-active .hamburger-bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.mobile-menu-toggle.is-active .hamburger-bar:first-child {
+    transform: translateY(9px) rotate(45deg);
+    background-color: #e74c3c;
+}
+
+.mobile-menu-toggle.is-active .hamburger-bar:last-child {
+    transform: translateY(-9px) rotate(-45deg);
+    background-color: #e74c3c;
+}
+
+.screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .main-navigation {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: #fff;
+        padding: 80px 25px 30px;
+        box-shadow: -3px 0 15px rgba(0, 0, 0, 0.15);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 99;
+    }
+
+    .main-navigation.menu-active {
+        right: 0;
+    }
+
+    .main-navigation .primary-menu {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .main-navigation .primary-menu li {
+        width: 100%;
+        margin: 0;
+        padding: 12px 0;
+        border-bottom: 1px solid #ecf0f1;
+        transition: background-color 0.3s ease;
+    }
+
+    .main-navigation .primary-menu li:hover {
+        background-color: #f7f9fc;
+    }
+
+    .main-navigation .primary-menu li:last-child {
+        border-bottom: none;
+    }
+
+    .main-navigation .primary-menu a {
+        display: block;
+        padding: 8px 0;
+        color: #2c3e50;
+        font-size: 1.1em;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .main-navigation .primary-menu a:hover {
+        color: #3498db;
+    }
+
+    /* Add overlay when menu is active */
+    .menu-active::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .menu-active.menu-active::before {
+        opacity: 1;
+    }
+}
+
+/* Desktop Navigation Styles */
+@media screen and (min-width: 769px) {
+    .main-navigation .primary-menu {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+    }
+
+    .main-navigation .primary-menu li {
+        position: relative;
+    }
+
+    .main-navigation .primary-menu a {
+        padding: 12px 15px;
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 1.05em;
+        transition: all 0.3s ease;
+        border-radius: 4px;
+    }
+
+    .main-navigation .primary-menu a:hover {
+        color: #3498db;
+        background-color: #f7f9fc;
+    }
+
+    .main-navigation .primary-menu .current-menu-item > a {
+        color: #3498db;
+        background-color: #f7f9fc;
+    }
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Container and grid layouts */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    /* Mobile-specific styles */
+    body {
+        font-size: 0.875rem;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Responsive typography */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Small mobile devices */
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    .container {
+        padding: 0 5px;
+    }
+}
+
+/* Utility classes */
+.responsive-image {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Hamburger menu for mobile */
+.mobile-menu {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+        position: relative;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+}
+
+/* Add smooth transitions */
+* {
+    transition: all 0.3s ease;
+}
+/*
+ * Responsive Design
+ */
+
+/* Mobile-first approach */
+body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Navigation styles */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Container and grid layouts */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    /* Mobile-specific styles */
+    body {
+        font-size: 0.875rem;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Responsive typography */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Small mobile devices */
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    .container {
+        padding: 0 5px;
+    }
+}
+
+/* Utility classes */
+.responsive-image {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Hamburger menu for mobile */
+.mobile-menu {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+        position: relative;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+}
+
+/* Add smooth transitions */
+* {
+    transition: all 0.3s ease;
+}
+/*
+ * Responsive Design
+ */
+
+/* Mobile-first approach */
+body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Navigation styles */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Container and grid layouts */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    /* Mobile-specific styles */
+    body {
+        font-size: 0.875rem;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Responsive typography */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Small mobile devices */
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    .container {
+        padding: 0 5px;
+    }
+}
+
+/* Utility classes */
+.responsive-image {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Hamburger menu for mobile */
+.mobile-menu {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+        position: relative;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+}
+
+/* Add smooth transitions */
+* {
+    transition: all 0.3s ease;
+}
+/*
+ * Responsive Design
+ */
+
+/* Mobile-first approach */
+body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Navigation styles */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Container and grid layouts */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    /* Mobile-specific styles */
+    body {
+        font-size: 0.875rem;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Responsive typography */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Small mobile devices */
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    .container {
+        padding: 0 5px;
+    }
+}
+
+/* Utility classes */
+.responsive-image {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Hamburger menu for mobile */
+.mobile-menu {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+        position: relative;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+}
+
+/* Add smooth transitions */
+* {
+    transition: all 0.3s ease;
+}

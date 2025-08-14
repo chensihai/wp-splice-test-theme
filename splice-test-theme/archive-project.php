@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php get_header();
+// xdebug_break();
+?>
 <main class="projects-archive">
   <h1>Projects</h1>
   <div class="cards">

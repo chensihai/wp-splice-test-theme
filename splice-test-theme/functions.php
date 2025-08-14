@@ -1,5 +1,23 @@
 <?php
 /**
+ * Enqueue scripts and styles for the theme
+ */
+function splice_test_theme_scripts() {
+    // Enqueue theme styles
+    wp_enqueue_style('splice-test-theme-style', get_stylesheet_uri());
+    
+    // Enqueue theme scripts
+    wp_enqueue_script(
+        'splice-test-theme-navigation',
+        get_template_directory_uri() . '/js/navigation.js',
+        array(),
+        '1.0.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'splice_test_theme_scripts');
+
+/**
  * Splice Test Theme functions and definitions
  */
 

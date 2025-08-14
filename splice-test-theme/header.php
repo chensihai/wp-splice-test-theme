@@ -21,17 +21,25 @@
             <?php endif; ?>
         </div>
 
-        <nav class="main-navigation nav-menu" aria-label="<?php esc_attr_e('Main Navigation', 'splice-test'); ?>">
-            <div class="main-nav-container">
-                <?php wp_nav_menu(array(
-                    'theme_location' => 'primary',
-                    'menu_class'     => 'primary-menu',
-                    'container'      => 'div',
-                    'depth'          => 3,
-                    'fallback_cb'    => 'wp_page_menu',
-                )); ?>
-            </div>
-        </nav>
+        <div class="responsive-nav-wrapper">
+            <nav class="main-navigation nav-menu" aria-label="<?php esc_attr_e('Main Navigation', 'splice-test'); ?>">
+                <div class="main-nav-container">
+                    <?php wp_nav_menu(array(
+                        'theme_location' => 'primary',
+                        'menu_class'     => 'primary-menu',
+                        'container'      => 'div',
+                        'depth'          => 3,
+                        'fallback_cb'    => 'wp_page_menu',
+                    )); ?>
+                </div>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="<?php esc_attr_e('Toggle mobile menu', 'splice-test'); ?>">
+                <span class="screen-reader-text"><?php esc_html_e('Menu', 'splice-test'); ?></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+        </div>
     </div>
 </header>
 
