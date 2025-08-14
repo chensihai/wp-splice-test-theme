@@ -12,7 +12,8 @@ if (!defined('ABSPATH')) {
 function splice_test_register_menus() {
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'splice-test'),
-        'footer'  => __('Footer Menu', 'splice-test')
+        'footer'  => __('Footer Menu', 'splice-test'),
+        'projects' => __('Projects Archive', 'splice-test')
     ));
 }
 add_action('init', 'splice_test_register_menus');
@@ -36,7 +37,7 @@ add_action('after_setup_theme', 'splice_test_theme_setup');
 // Register Projects custom post type
 function splice_test_register_project_cpt() {
     $labels = array(
-        'name' => __('Projects', 'splice-test'),
+        // 'name' => __('Projects', 'splice-test'),
         'singular_name' => __('Project', 'splice-test'),
         'menu_name' => __('Projects', 'splice-test'),
         'add_new_item' => __('Add New Project', 'splice-test'),
@@ -71,7 +72,7 @@ function splice_test_project_meta_callback($post) {
     wp_nonce_field('splice_test_save_project_meta', 'project_meta_nonce');
 
     $fields = array(
-        'project_name' => __('Project Name', 'splice-test'),
+        // 'project_name' => __('Project Name', 'splice-test'),
         'project_start_date' => __('Start Date', 'splice-test'),
         'project_end_date' => __('End Date', 'splice-test'),
         'project_url' => __('Project URL', 'splice-test'),
@@ -88,12 +89,12 @@ function splice_test_project_meta_callback($post) {
     }
 
     // Project Description (textarea)
-    $description = get_post_meta($post->ID, 'project_description', true);
-    echo '<p>';
-    echo '<label for="project_description">' . __('Description', 'splice-test') . '</label>';
-    echo '<textarea id="project_description" name="project_description" ';
-    echo 'class="widefat" rows="5">' . esc_textarea($description) . '</textarea>';
-    echo '</p>';
+    // $description = get_post_meta($post->ID, 'project_description', true);
+    // echo '<p>';
+    // echo '<label for="project_description">' . __('Description', 'splice-test') . '</label>';
+    // echo '<textarea id="project_description" name="project_description" ';
+    // echo 'class="widefat" rows="5">' . esc_textarea($description) . '</textarea>';
+    // echo '</p>';
 }
 
 // Save meta data
@@ -122,3 +123,13 @@ function splice_test_save_project_meta($post_id) {
 add_action('save_post_project', 'splice_test_save_project_meta');
 
 // ... remaining meta box and REST API code from previous steps ...
+
+
+// function remove_post_type_title() {
+
+//     remove_post_type_support( 'project', 'title' );
+//     remove_post_type_support( 'project', 'editor' );
+
+// }
+
+// add_action( 'init', 'remove_post_type_title' );
