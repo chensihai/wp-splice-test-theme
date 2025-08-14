@@ -1,0 +1,26 @@
+/*
+Theme Name: Splice Test Theme
+Theme URI: 
+Author: Developer Name
+Author URI: 
+Description: Custom theme for Splice Test
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: splice-test
+*/
+
+/* Basic reset and responsive base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    line-height: 1.6;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px;
+}
