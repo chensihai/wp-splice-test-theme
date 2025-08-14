@@ -21,13 +21,16 @@
             <?php endif; ?>
         </div>
 
-        <nav class="main-navigation" aria-label="<?php esc_attr_e('Main Navigation', 'splice-test'); ?>">
-            <?php wp_nav_menu(array(
-                'theme_location' => 'primary',
-                'menu_class'     => 'primary-menu',
-                'container'      => false,
-                'depth'          => 2
-            )); ?>
+        <nav class="main-navigation nav-menu" aria-label="<?php esc_attr_e('Main Navigation', 'splice-test'); ?>">
+            <div class="main-nav-container">
+                <?php wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'menu_class'     => 'primary-menu',
+                    'container'      => 'div',
+                    'depth'          => 3,
+                    'fallback_cb'    => 'wp_page_menu',
+                )); ?>
+            </div>
         </nav>
     </div>
 </header>
