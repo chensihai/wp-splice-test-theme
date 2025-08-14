@@ -7,6 +7,10 @@ if (!defined('ABSPATH')) {
     exit; // Security: Prevent direct access
 }
 
+// Include necessary WordPress core files
+if (!class_exists('WP_Site_Health')) {
+    require_once ABSPATH . 'wp-admin/includes/class-wp-site-health.php';
+}
 
 // Register navigation menus
 function splice_test_register_menus() {
@@ -37,7 +41,7 @@ add_action('after_setup_theme', 'splice_test_theme_setup');
 // Register Projects custom post type
 function splice_test_register_project_cpt() {
     $labels = array(
-        // 'name' => __('Projects', 'splice-test'),
+        'name' => __('Projects', 'splice-test'),
         'singular_name' => __('Project', 'splice-test'),
         'menu_name' => __('Projects', 'splice-test'),
         'add_new_item' => __('Add New Project', 'splice-test'),
@@ -46,7 +50,7 @@ function splice_test_register_project_cpt() {
     $args = array(
         'labels' => $labels,
         'public' => true,
-        'has_archive' => true,
+        'has_archive' => true, // Ensure archive functionality is enabled
         'supports' => array('title', 'editor', 'thumbnail'),
         'rewrite' => array('slug' => 'projects'),
         'menu_icon' => 'dashicons-portfolio',
@@ -98,6 +102,45 @@ function splice_test_project_meta_callback($post) {
 }
 
 // Save meta data
+
+register_rest_route(
+    'splice/v1',
+    '/projects',
+    array(
+        'methods' => 'GET',
+        'callback' => 'splice_get_projects',
+        'permission_callback' => function () {
+            return true;
+        }
+    )
+);
+
+function splice_get_projects() {
+    $args = array(
+        'post_type' => 'project',
+        'posts_per_page' => -1,
+        'post_status' => 'publish'
+    );
+
+    $projects = get_posts($args);
+    
+    $project_list = array();
+    
+    foreach ($projects as $project) {
+        $project_list[] = array(
+            'title' => get_the_title($project->ID),
+            'url' => get_permalink($project->ID),
+            'start_date' => get_post_meta($project->ID, 'project_start_date', true),
+            'end_date' => get_post_meta($project->ID, 'project_end_date', true)
+        );
+    }
+
+    if (empty($project_list)) {
+        return array();
+    }
+
+    return $project_list;
+}
 function splice_test_save_project_meta($post_id) {
     if (!isset($_POST['project_meta_nonce']) ||
         !wp_verify_nonce($_POST['project_meta_nonce'], 'splice_test_save_project_meta')) {
@@ -132,4 +175,12 @@ add_action('save_post_project', 'splice_test_save_project_meta');
 
 // }
 
-// add_action( 'init', 'remove_post_type_title' );
+// Debug template selection
+  function splice_test_debug_template() {
+      if (is_post_type_archive('project')) {
+          echo '<!-- Using template: ' . get_query_template('archive-project') . ' -->';
+      }
+  }
+  add_action('wp_head', 'splice_test_debug_template');
+  
+  // add_action( 'init', 'remove_post_type_title' );
