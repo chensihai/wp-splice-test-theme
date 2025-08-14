@@ -24,6 +24,17 @@ function splice_test_theme_scripts() {
             'ajaxurl' => admin_url('admin-ajax.php')
         )
     );
+
+    // Enqueue project filters script only on project archive page
+    if (is_post_type_archive('project')) {
+        wp_enqueue_script(
+            'splice-test-theme-project-filters',
+            get_template_directory_uri() . '/js/project-filters.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'splice_test_theme_scripts');
 
