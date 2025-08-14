@@ -104,8 +104,6 @@ function splice_test_save_project_meta($post_id) {
     }
 
     $fields = array(
-        'project_name',
-        'project_description',
         'project_start_date',
         'project_end_date',
         'project_url'
