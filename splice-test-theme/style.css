@@ -128,6 +128,7 @@ nav {
         box-shadow: -3px 0 15px rgba(0, 0, 0, 0.15);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 99;
+        overflow-y: auto;
     }
 
     .main-navigation.menu-active {
@@ -139,12 +140,50 @@ nav {
         width: 100%;
     }
 
+    /* Reset submenu styles for mobile */
+    .main-navigation .primary-menu .sub-menu {
+        display: none;
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        padding: 0;
+        margin-top: 10px;
+        background: transparent;
+    }
+
+    .main-navigation .primary-menu .sub-menu.active {
+        display: block;
+        animation: slideDown 0.3s ease-in-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     .main-navigation .primary-menu li {
         width: 100%;
         margin: 0;
         padding: 12px 0;
         border-bottom: 1px solid #ecf0f1;
         transition: background-color 0.3s ease;
+    }
+
+    .main-navigation .primary-menu .sub-menu li {
+        padding: 8px 0;
+        border-bottom: none;
+    }
+
+    .main-navigation .primary-menu .sub-menu a {
+        padding-left: 20px;
+        font-size: 1em;
+        color: #505c68;
     }
 
     .main-navigation .primary-menu li:hover {
@@ -167,6 +206,19 @@ nav {
 
     .main-navigation .primary-menu a:hover {
         color: #3498db;
+    }
+
+    /* Mobile submenu toggle */
+    .main-navigation .primary-menu .menu-item-has-children > a::after {
+        content: '+';
+        float: right;
+        font-size: 1.2em;
+        line-height: 1;
+        transition: transform 0.3s ease;
+    }
+
+    .main-navigation .primary-menu .menu-item-has-children.active > a::after {
+        content: '−';
     }
 
     /* Add overlay when menu is active */
@@ -200,7 +252,56 @@ nav {
         position: relative;
     }
 
-    .main-navigation .primary-menu a {
+    /* Submenu Styles */
+    .main-navigation .primary-menu .sub-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        padding: 8px 0;
+        z-index: 100;
+    }
+
+    .main-navigation .primary-menu li:hover > .sub-menu {
+        display: block;
+        animation: fadeInMenu 0.3s ease-in-out;
+    }
+
+    @keyframes fadeInMenu {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .main-navigation .primary-menu .sub-menu li {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .main-navigation .primary-menu .sub-menu a {
+        padding: 10px 20px;
+        display: block;
+        font-size: 0.95em;
+        border-radius: 0;
+        white-space: nowrap;
+    }
+
+    .main-navigation .primary-menu .sub-menu a:hover {
+        background-color: #f7f9fc;
+    }
+
+    /* Parent menu items */
+    .main-navigation .primary-menu > li > a {
         padding: 12px 15px;
         text-decoration: none;
         color: #2c3e50;
@@ -210,7 +311,7 @@ nav {
         border-radius: 4px;
     }
 
-    .main-navigation .primary-menu a:hover {
+    .main-navigation .primary-menu > li:hover > a {
         color: #3498db;
         background-color: #f7f9fc;
     }
@@ -218,6 +319,19 @@ nav {
     .main-navigation .primary-menu .current-menu-item > a {
         color: #3498db;
         background-color: #f7f9fc;
+    }
+
+    /* Add dropdown indicator for items with submenus */
+    .main-navigation .primary-menu .menu-item-has-children > a::after {
+        content: '▾';
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 0.8em;
+        transition: transform 0.3s ease;
+    }
+
+    .main-navigation .primary-menu .menu-item-has-children:hover > a::after {
+        transform: rotate(180deg);
     }
 }
 
