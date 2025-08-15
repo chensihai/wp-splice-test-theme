@@ -83,17 +83,6 @@ splice-test-theme/
     └── project-filters.js
 ```
 
-## Development
-
-### Local Development with Lando
-
-1. Install Lando
-2. Start the development environment:
-```bash
-lando start
-```
-
-3. Access the site at: `http://my-first-wordpress-app.lndo.site`
 
 ### Date Validation
 
@@ -124,4 +113,4 @@ The theme includes robust date validation:
 
 ## License
 
-[Your chosen license]
+MIT License
